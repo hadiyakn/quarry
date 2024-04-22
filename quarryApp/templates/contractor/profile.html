@@ -1,0 +1,85 @@
+{% extends 'contractor/index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Profile</title>
+{% endblock title %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <h1 class="display-3 text-white animated slideInRight">Profile</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb animated slideInRight mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+{% if messages %}
+{% for message in messages %}
+    <center><h5 style="color: rgb(31, 95, 31);">{{message}}</h5></center>
+{% endfor %}
+{% endif %} 
+
+<div class="container-fluid py-5 my-5 px-0">
+    <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+        <p class="fw-medium text-uppercase text-primary mb-2">Profile</p>
+    </div>
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div class="card" style="width: 60%;">
+                <div class="card-body">
+                    <center><h5 class="card-title">Profile</h5></center>
+                    {% if data %}
+                    {% for i in data %}
+                    <!-- Vertical Form -->
+                    <form class="row g-3" action="/contractor_profile/" method="post" id="myform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-6">
+                        <label for="name" class="form-label">Your Full Name</label>
+                        <input type="text" class="form-control" id="name" name="n1" value="{{i.name}}" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="cname" class="form-label">Company Name</label>
+                        <input type="text" class="form-control" id="cname" name="n2" value="{{i.company}}" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="coname" class="form-label">Company Owner Name</label>
+                        <input type="text" class="form-control" id="coname" name="n3" value="{{i.owner_name}}" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="add" class="form-label">Company Address</label>
+                        <textarea class="form-control" style="height: 100px" id="add" name="n4" required>{{i.company_address}}</textarea>
+                    </div>
+                    <div class="col-6">
+                        <label for="on" class="form-label">Contact Number</label>
+                        <input type="number"  name="n5" class="form-control" value="{{i.contact_no}}" id="on" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="n6" class="form-control" id="email" value="{{i.email}}" required>
+                    </div>
+                    <input type="hidden" value="{{i.log_id}}" name="n7">
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Update">
+                    </div>
+                    <div class="text-center">
+                        Click here to Reset Password <br>
+                        <a href="/reset_con" class="btn btn-primary btn-sm" style="background-color: rgb(0, 110, 255);">Reset Password</a>
+                    </div>
+                    </form><!-- Vertical Form -->
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+{% endblock content %}

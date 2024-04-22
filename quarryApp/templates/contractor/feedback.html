@@ -1,0 +1,110 @@
+{% extends 'contractor/index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Feedback</title>
+{% endblock title %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <h1 class="display-3 text-white animated slideInRight">Feedback</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb animated slideInRight mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Feedback</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+{% if messages %}
+{% for message in messages %}
+    <center><h5 style="color: rgb(61, 99, 26);">{{message}}</h5></center>
+{% endfor %}
+{% endif %}
+
+<div class="container-fluid py-5 my-5 px-0" style="width: 50%;">
+    <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="width: 50%;">
+        <p class="fw-medium text-uppercase text-primary mb-2">Feedback</p>
+    </div>
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div class="card" style="width: 60%;">
+                <div class="card-body">
+                    <center><h5 class="card-title">Feedback</h5></center>
+
+                    <!-- Vertical Form -->
+                    <form class="row g-3" action="/contractor_feedback/" method="post" id="myform">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <label for="feed" class="form-label">Feedback</label>
+                        <textarea class="form-control" style="height: 100px" id="feed" name="feed" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary btn-sm" value="send">
+                    </div>
+                    </form><!-- Vertical Form -->
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+{% if data %}
+
+
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card top-selling overflow-auto">
+            
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title">Feedback and <span>| Reply</span></h5>
+            
+                                    <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Sl.No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Feedback</th>
+                                        <th scope="col">Reply</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% for i in data %}
+                                        <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{i.0}}</td>
+                                        <td>{{i.6}}</td>
+                                        <td>{{i.4}}</td>
+                                        {% if i.5 == '0' %}
+                                        <td><b style="color: blue;">Waiting for reply..</b></td>
+                                        {% else %}
+                                        <td>{{i.5}}</td>
+                                        {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> 
+        </div> 
+    </div>
+
+
+{% endif %}
+{% endblock content %}

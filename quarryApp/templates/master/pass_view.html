@@ -1,0 +1,77 @@
+{% extends 'master/index.html' %}
+
+{% block title %}
+<title>View Vehicle Pass</title>
+{% endblock title %}
+
+{% block content %}
+<div class="pagetitle">
+    <h1>View Vehicle Pass</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+        <li class="breadcrumb-item active">View Vehicle Pass</li>
+      </ol>
+    </nav>
+</div><!-- End Page Title -->
+<br><br>
+    {% if messages %}
+    {% for message in messages %}
+        <center><h5 style="color: rgb(17, 61, 17);">{{message}}</h5></center>
+    {% endfor %}
+    {% endif %}
+
+<section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card top-selling overflow-auto">
+
+                        <div class="card-body pb-0">
+                            <h5 class="card-title">View Vehicle <span>| Pass</span></h5>
+    
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Sl.No</th>
+                                    <th scope="col">Owner Name</th>
+                                    <th scope="col">Vehicle Number</th>
+                                    <th scope="col">Permit</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for i in data %}
+                                    <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{i.0}}</td>
+                                    <td>{{i.1}}</td>
+                                    <td>{{i.2}}</td>
+                                    <td>{{i.3}}</td>
+                                    <td>{{i.4}}</td>
+                                    <td>{{i.5}}</td>
+                                    {% if i.6 == 0 %}
+                                    <td><b style="color: blue;">Applied...</b></td>
+                                    {% elif i.6 == 1 %}
+                                    <td><b style="color: rgb(15, 99, 33);">Pass Approved</b></td>
+                                    {% else %}
+                                    <td><b style="color: rgb(119, 12, 17);">Pass Rejected</b></td>
+                                    {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>   
+  {% endblock content %}

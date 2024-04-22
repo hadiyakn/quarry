@@ -1,0 +1,190 @@
+{% extends 'master/index.html' %}
+{% load static %}
+{% block title %}
+<title>Employee Register</title>
+{% endblock title %}
+
+{% block content %}
+<div class="pagetitle">
+    <h1>Employee Register</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+        <li class="breadcrumb-item active">Employee Register</li>
+      </ol>
+    </nav>
+</div><!-- End Page Title -->
+<br><br>
+    {% if messages %}
+    {% for message in messages %}
+        <center><h5 style="color: rgb(31, 95, 31);">{{message}}</h5></center>
+    {% endfor %}
+    {% endif %}
+
+<div class="row justify-content-center">
+    <div class="card" style="width: 60%;">
+        <div class="card-body">
+            <center><h5 class="card-title">Employee Register</h5></center>
+
+            <!-- Vertical Form -->
+            <form class="row g-3" action="/emp_register/" method="post" id="myform" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-6">
+                <label for="name" class="form-label">Employee Full Name</label>
+                <input type="text" class="form-control" id="name" name="n1" required>
+            </div>
+            <div class="col-6">
+                <label for="lic" class="form-label">Employee Image</label>
+                <input type="file" class="form-control"  id="lic" name="n2">
+            </div>
+            <div class="col-6">
+                <label for="add" class="form-label">Employee Address</label>
+                <textarea class="form-control" style="height: 100px" id="add" name="n3" required></textarea>
+            </div>
+            <div class="col-6">
+                <label for="on" class="form-label">Contact Number</label>
+                <input type="number"  name="n4" class="form-control" id="on" required>
+            </div>
+            <div class="col-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" name="n5" class="form-control" id="email" required>
+            </div>
+            <div class="col-6">
+                <label for="text" class="form-label">Designation</label>
+                <input type="text" name="n9" class="form-control" id="text" required>
+            </div>
+            <div class="col-6">
+                <label for="use" class="form-label">Username</label>
+                <input type="text" name="n6" class="form-control" id="use" required>
+            </div>
+            <div class="col-6">
+            </div>
+            <div class="col-6">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" name="n7" class="form-control" id="password" required>
+            </div>
+            <div class="col-6">
+                <label for="cpas" class="form-label">Confirm Password</label>
+                <input type="text" name="n8" class="form-control" id="cpas" required>
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary btn-sm" value="Register">
+            </div>
+            </form><!-- Vertical Form -->
+        </div>
+    </div>
+</div>
+
+<section class="section dashboard">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card top-selling overflow-auto">
+
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Employee <span>| Details</span></h5>
+
+                        <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                            <th scope="col">Sl.No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Contact Number</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if data %}
+                            {% for i in data %}
+                            <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{i.name}}</td>
+                            <td><img src="{{i.image}}" alt=""></td>
+                            <td>{{i.address}}</td>
+                            <td>{{i.contact_no}}</td>
+                            <td>{{i.email}}</td>
+                            <td><a href="/del_emp/{{i.log_id}}" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+
+    <!-- <script src="{% static 'Validation/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'Validation/jquery_validate.js' %}"></script>
+    <script src="{% static 'Validation/additional_validate.js' %}"></script>
+<script>
+(function ($, W, D)
+{
+var JQUERY4U = {};
+JQUERY4U.UTIL =
+{
+setupFormValidation: function ()
+{
+$.validator.addMethod(
+"regex",
+function(value, element, regexp) {
+var check = false;
+return this.optional(element) || regexp.test(value);
+},
+"Not a valid Input."
+);
+
+//form validation rules
+$("#myform").validate({
+ignore: [],
+rules: {
+
+            n2: {
+                required: true,
+                
+                },
+            n3: {
+                required: true,
+                 regex : /^[A-Za-z0-9@#*]+$/,
+                 minlength: 5,
+                maxlength: 15,
+
+            },
+            n4: {
+                required: true,
+                   regex : /^[A-Za-z0-9@#*]+$/,
+                   minlength: 5,
+                  maxlength: 15,
+              equalTo: "#password"
+
+            },
+            
+          },
+          messages: {
+
+            n: "Please Enter Valid 10 digit Phone Number - Starting from 6, 7 or 8 or 9",
+            username: "Please Enter Valid User Name(5-15 digit alphanumeric username",
+            n3: "Please Enter Valid Password Name(5-15 digit alphanumeric  password  and @#* also allowed",
+            n4: "Please Enter Valid Password Name(5-15 digit alphanumeric confirm password and same as above password and @#* also allowed",
+            uname:"User name is not available",
+},
+submitHandler: function (form) {
+form.submit();
+}
+});
+}
+}
+//when the dom has loaded setup form validation rules
+$(D).ready(function ($) {
+JQUERY4U.UTIL.setupFormValidation();
+});
+})(jQuery, window, document);
+</script> -->
+{% endblock content %}

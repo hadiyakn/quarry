@@ -1,0 +1,126 @@
+{% extends 'contractor/index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Add Vehicle Details</title>
+{% endblock title %}
+
+{% block content %}
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <h1 class="display-3 text-white animated slideInRight">Registration</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb animated slideInRight mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registration</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+{% if messages %}
+{% for message in messages %}
+    <center><h5 style="color: rgb(31, 95, 31);">{{message}}</h5></center>
+{% endfor %}
+{% endif %} 
+
+<div class="container-fluid py-5 my-5 px-0">
+    <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+        <p class="fw-medium text-uppercase text-primary mb-2">Add Vehicle Details</p>
+    </div> 
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div class="card" style="width: 50%;">
+                <div class="card-body">
+                    <center><h5 class="card-title">Add Vehicle Details</h5></center>
+
+                    <!-- Vertical Form -->
+                    <form class="row g-3" action="/add_vehicle/" method="post" id="myform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-6">
+                        <label for="oname" class="form-label">Owner Name</label>
+                        <input type="text" class="form-control" id="oname" name="n1" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="cno" class="form-label">Contact Number</label>
+                        <input type="number" class="form-control" id="cno" name="n2" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="add" class="form-label">Address</label>
+                        <textarea class="form-control" style="height: 100px" id="add" name="n3" required></textarea>
+                    </div>
+                    <div class="col-6">
+                        <label for="cname" class="form-label">Vehicle Number</label>
+                        <input type="text" class="form-control" id="cname" name="n4" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="coname" class="form-label">Permit</label>
+                        <input type="text" class="form-control" id="coname" name="n5" required>
+                    </div>
+                    
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Add">
+                    </div>
+                    </form><!-- Vertical Form -->
+                </div>
+            </div>
+        </div> 
+    </div>
+    {% if data %}
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card top-selling overflow-auto">
+            
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title">Vehicle <span>| Details</span></h5>
+            
+                                    <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Sl.No</th>
+                                        <th scope="col">Owner Name</th>
+                                        <th scope="col">Contact Number</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Vehicle Number</th>
+                                        <th scope="col">Permit</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% for i in data %}
+                                        <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{i.owner_name}}</td>
+                                        <td>{{i.contact_no}}</td>
+                                        <td>{{i.address}}</td>
+                                        <td>{{i.vehicle_number}}</td>
+                                        <td>{{i.permit}} /feet</td>
+                                        <td><a href="/up_vehicle/{{i.v_id}}" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a></td>
+                                        <td><a href="/del_vehicle/{{i.v_id}}" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> 
+        </div> 
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

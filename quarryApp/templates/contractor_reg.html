@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+<title>Registration</title>
+{% endblock title %}
+
+{% block content %}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <h1 class="display-3 text-white animated slideInRight">Registration</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb animated slideInRight mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registration</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+{% if messages %}
+{% for message in messages %}
+    <center><h5 style="color: rgb(31, 95, 31);">{{message}}</h5></center>
+{% endfor %}
+{% endif %} 
+
+<div class="container-fluid py-5 my-5 px-0">
+    <div class="text-center mx-auto wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+        <p class="fw-medium text-uppercase text-primary mb-2">Contractor Registration</p>
+    </div>
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div class="card" style="width: 60%;">
+                <div class="card-body">
+                    <center><h5 class="card-title">Contractor Registration</h5></center>
+
+                    <!-- Vertical Form -->
+                    <form class="row g-3" action="/contractor_reg/" method="post" id="myform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-6">
+                        <label for="name" class="form-label">Your Full Name</label>
+                        <input type="text" class="form-control" id="name" name="n1" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="cname" class="form-label">Company Name</label>
+                        <input type="text" class="form-control" id="cname" name="n2" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="coname" class="form-label">Company Owner Name</label>
+                        <input type="text" class="form-control" id="coname" name="n3" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="lic" class="form-label">Upload Licence</label>
+                        <input type="file" class="form-control"  id="lic" name="n4" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="add" class="form-label">Company Address</label>
+                        <textarea class="form-control" style="height: 100px" id="add" name="n5" required></textarea>
+                    </div>
+                    <div class="col-6">
+                        <label for="on" class="form-label">Contact Number</label>
+                        <input type="number"  name="n6" class="form-control" id="on" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="n7" class="form-control" id="email" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="use" class="form-label">Username</label>
+                        <input type="text" name="n8" class="form-control" id="use" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="text" name="n9" class="form-control" id="password" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="cpas" class="form-label">Confirm Password</label>
+                        <input type="text" name="n10" class="form-control" id="cpas" required>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Register">
+                    </div>
+                    </form><!-- Vertical Form -->
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+{% endblock content %}
